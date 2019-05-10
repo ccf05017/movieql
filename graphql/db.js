@@ -1,46 +1,30 @@
 import axios from "axios";
 
-const BASE_URL = "https://yts.am/api/v2/";
-const LIST_MOVIES_URL = `${BASE_URL}list_movies.json`;
-const MOVIE_DETAILS_URL = `${BASE_URL}movie_details.json`;
-const MOVIE_SUGGESTIONS_URL = `${BASE_URL}movie_suggestions.json`;
+const ETH_BASE = "http://localhost:8000/";
+const LIST_BLOCKS_URL = `${ETH_BASE}api/block/`;
+const LIST_TRANSACTIONS_URL = `${ETH_BASE}api/transaction/`;
 
-export const getMovies = async (limit, rating) => {
+export const getBlocks = async () => {
   const {
-    data: {
-      data: { movies }
-    }
-  } = await axios(LIST_MOVIES_URL, {
-    params: {
-      limit,
-      minimum_rating: rating
-    }
+    data: { results }
+  } = await axios(LIST_BLOCKS_URL, {
+    params: {}
   });
-  return movies;
+  return results;
 };
 
-export const getMovie = async id => {
-  const {
-    data: {
-      data: { movie }
-    }
-  } = await axios(MOVIE_DETAILS_URL, {
-    params: {
-      movie_id: id
-    }
+export const getBlock = async blockNumber => {
+  const { data } = await axios(LIST_BLOCKS_URL + blockNumber, {
+    params: {}
   });
-  return movie;
+  return data;
 };
 
-export const getSuggestions = async id => {
+export const getTransactions = async () => {
   const {
-    data: {
-      data: { movies }
-    }
-  } = await axios(MOVIE_SUGGESTIONS_URL, {
-    params: {
-      movie_id: id
-    }
+    data: { results }
+  } = await axios(LIST_TRANSACTIONS_URL, {
+    params: {}
   });
-  return movies;
+  return results;
 };

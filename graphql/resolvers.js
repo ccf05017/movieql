@@ -1,10 +1,10 @@
-import { getMovies, getMovie, getSuggestions } from "./db";
+import { getBlocks, getBlock, getTransactions } from "./db";
 
 const resolvers = {
   Query: {
-    movies: (parent, { limit, rating }) => getMovies(limit, rating),
-    movie: (parent, { id }) => getMovie(id),
-    suggestions: (parent, { id }) => getSuggestions(id)
+    blocks: () => getBlocks(),
+    getBlock: (parent, { blockNumber }) => getBlock(blockNumber),
+    transactions: () => getTransactions()
   }
 };
 

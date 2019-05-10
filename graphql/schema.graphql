@@ -1,16 +1,72 @@
 # DB 조회 -> query
 # DB 변경 -> mutation
-type Movie {
+
+type Block {
   id: Int!
-  title: String!
-  rating: Float!
-  summary: String!
-  language: String!
-  medium_cover_image: String!
+  number: Int!
+  timestamp: String!
+  transaction_count: Int!
+  miner: String!
+  gas_used: Int!
+  gas_limit: Int!
+  reward: Float!
+  related_transaction: [RTransaction]!
+}
+
+type BlockDetail {
+  id: Int!
+  number: Int!
+  block_hash: String!
+  timestamp: String!
+  transaction_count: Int!
+  miner: String!
+  difficulty: Int!
+  gas_used: Int!
+  gas_limit: Int!
+  parent_hash: String!
+  nonce: String!
+  total_difficulty: Int!
+  size: Int!
+  extra_data: String!
+  reward: Float!
+  logs_bloom: String!
+  recipt_root: String!
+  state_root: String!
+  transaction_root: String!
+  pre_block: [Int]!
+  next_block: [Int]
+  related_transaction: [RTransaction]!
+}
+
+type RTransaction {
+  transaction_hash: String!
+  timestamp: String!
+  transaction_from: String!
+  gas: Int!
+  gas_price: Int!
+  transaction_input: String!
+  nonce: String!
+  transaction_to: String!
+  transaction_index: String!
+  value: String!
+  v: String!
+  r: String!
+  s: String!
+}
+
+type Transaction {
+  id: Int!
+  timestamp: String!
+  transaction_hash: String!
+  transaction_from: String!
+  transaction_to: String!
+  value: Float!
+  gas: Int!
+  gas_price: Float!
 }
 
 type Query {
-  movies(limit: Int, rating: Float): [Movie]!
-  movie(id: Int!): Movie!
-  suggestions(id: Int!): [Movie]!
+  blocks: [Block]!
+  transactions: [Transaction]!
+  getBlock(blockNumber: Int!): BlockDetail!
 }
